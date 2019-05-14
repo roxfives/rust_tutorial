@@ -1,4 +1,3 @@
 # Ignores the executable files
 *.run
-*.lock
 target
