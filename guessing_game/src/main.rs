@@ -4,17 +4,22 @@ use rand::Rng;
 
 fn main() {
     let secret_number = rand::thread_rng().gen_range(1, 101);
-    println!("Type your guess!");
     
-    println!("The secret number: {}", secret_number);
+    println!("##################### Type your guess! #####################");
 
     loop {
         let mut guess = String::new();
+
         io::stdin().read_line(&mut guess)
             .expect("Failed to read input line");
         
-        let guess: u32 = guess.trim().parse()
-            .expect("Please, type a number"); 
+        let guess: u32 = match guess.trim().parse() {
+            Ok(num) => num,
+            Err(_) => {
+                println!("Please, print a valid integer!");
+                continue;
+            },
+        }; 
 
         println!("You guessed {}", guess);
 
@@ -22,7 +27,7 @@ fn main() {
             Ordering::Less => println!("Too low!"),
             Ordering::Greater => println!("Too big!"),
             Ordering::Equal => {
-                println!("You win!");
+                println!("##################### You win! #####################");
                 break;
             }
         }
